@@ -8,6 +8,7 @@
 #ifndef _COMMON_H
 #define _COMMON_H
 
+#include <rtthread.h>
 #include <string.h>
 
 #define QSH(...)                rt_kprintf(__VA_ARGS__)

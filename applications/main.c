@@ -8,10 +8,12 @@
  * 2023-07-02     RT-Thread    first version
  */
 
-#include <rtthread.h>
+#include "init.h"
 
 int main(void)
 {
-
-    return RT_EOK;
+    if(init() < 0){
+        return -1;
+    }
+    return 0;
 }
