@@ -640,13 +640,14 @@ RTM_EXPORT(rt_strdup);
  */
 void rt_show_version(void)
 {
-    rt_kprintf("  ______ _____  ______   _   _\n");
-    rt_kprintf(" |  __  |  __ \\|  __  \\ | | | |\n");
-    rt_kprintf(" | | _| | |  \\ | |__| | | | | |\n");
-    rt_kprintf(" | |_\\ \\| |__/ | |  \\ \\ | \\_/ |\n");
-    rt_kprintf(" |____\\_\\_____/|_|   \\_\\ \\___/ \n");
+    rt_kprintf("\x1b[2J\x1b[H");
+    rt_kprintf("  ______ _____  _____ _   _\n");
+    rt_kprintf(" |  __  |  __ \\|  _  \\ | | |\n");
+    rt_kprintf(" | | _| | |  \\ | |_| | | | |\n");
+    rt_kprintf(" | |_\\ \\| |__/ | | \\ \\ \\_/ |\n");
+    rt_kprintf(" |____\\_\\_____/|_|  \\_\\___/ \n\n");
     rt_kprintf(" RTThread -v%d.%d.%d\n", RT_VERSION, RT_SUBVERSION, RT_REVISION);               
-    rt_kprintf(" Modefied by luoqi at %s %s\n", __DATE__, __TIME__);
+    rt_kprintf(" Modefied by luoqi at %s %s\n\n", __DATE__, __TIME__);
 }
 RTM_EXPORT(rt_show_version);
 

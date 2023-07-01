@@ -40,3 +40,4 @@ settings/
 *.targets
 .project
 .cproject
+cubemx/
