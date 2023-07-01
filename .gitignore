@@ -38,3 +38,5 @@ settings/
 
 .settings
 *.targets
+.project
+.cproject
