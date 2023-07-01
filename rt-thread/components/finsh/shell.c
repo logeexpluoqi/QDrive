@@ -768,7 +768,7 @@ int finsh_system_init(void)
     finsh_system_function_init(ptr_begin, ptr_end);
 #endif
 #endif
-
+    rt_thread_mdelay(1000);
 #ifdef RT_USING_HEAP
     /* create or set shell structure */
     shell = (struct finsh_shell *)rt_calloc(1, sizeof(struct finsh_shell));
