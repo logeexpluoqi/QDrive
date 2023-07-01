@@ -17,4 +17,6 @@
 
 #define ISARG(s1, s2)           (strcmp(s1, s2) == 0)
 
+#define QSH_EXPORT(name, callback, desc)    MSH_CMD_EXPORT_ALIAS(callback, name, desc)
+
 #endif
