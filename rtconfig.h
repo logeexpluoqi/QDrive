@@ -109,10 +109,6 @@
 /* end of POSIX (Portable Operating System Interface) layer */
 /* end of C/C++ and POSIX layer */
 
-/* Network */
-
-/* end of Network */
-
 /* Utilities */
 
 /* end of Utilities */
