@@ -71,6 +71,10 @@ extern "C"
 #define BSP_UART1_TX_PIN       "PA9"
 #define BSP_UART1_RX_PIN       "PA10"
 
+#define BSP_USING_UART6
+#define BSP_UART6_TX_PIN       "PA11"
+#define BSP_UART6_RX_PIN       "PA"
+
 /*-------------------------- UART CONFIG END --------------------------*/
 
 /*-------------------------- I2C CONFIG BEGIN --------------------------*/
@@ -88,9 +92,11 @@ extern "C"
  */
 
 /*#define BSP_USING_I2C1*/
+#define BSP_USING_I2C1
+
 #ifdef BSP_USING_I2C1
-#define BSP_I2C1_SCL_PIN    GET_PIN(port, pin)
-#define BSP_I2C1_SDA_PIN    GET_PIN(port, pin)
+#define BSP_I2C1_SCL_PIN    GET_PIN(B, 8)
+#define BSP_I2C1_SDA_PIN    GET_PIN(B, 9)
 #endif
 
 /*#define BSP_USING_I2C2*/
@@ -117,7 +123,7 @@ extern "C"
  *                 such as     #define HAL_SPI_MODULE_ENABLED
  */
 
-/*#define BSP_USING_SPI1*/
+#define BSP_USING_SPI1
 /*#define BSP_USING_SPI2*/
 /*#define BSP_USING_SPI3*/
 
