@@ -18,9 +18,9 @@
 | SPI1_MOSI | PB5  | SPI1     |
 | I2C1_SCL  | PB8  | I2C1     |
 | I2C1_SDA  | PB9  | I2C1     |
-| BLINK     | PB13 | GPIOB    |
+| BLINK     | PC13 | GPIOB    |
 | DIR1      | PB0  | GPIOB    |
 | DIR2      | PB1  | GPIOB    |
 | DIR3      | PB2  | GPIOB    |
 | DIR4      | PB10 | GPIOB    |
-| HWTIMER   |      | TIM11    |
+| HWTIMER   | \    | TIM11    |

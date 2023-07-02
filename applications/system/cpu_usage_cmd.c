@@ -37,7 +37,7 @@ void cpu_usage_msh(int argc, char *argv[])
         }
         rt_kprintf("CPU usage adjusted to %d%c\n", tid->user_data, '%');
     } else if (argc == 1) {
-        rt_kprintf(" CPU load: %d%%\n", (int)cpu_load_average());
+        rt_kprintf(" CPU load: %.1f%%\n", cpu_load_average());
     } else {
         rt_kprintf("%s\n", argv[0]);
     }

@@ -2,27 +2,27 @@
  * @ Author: luoqi
  * @ Create Time: 2023-07-02 03:10
  * @ Modified by: luoqi
- * @ Modified time: 2023-07-02 21:56
+ * @ Modified time: 2023-07-03 01:11
  * @ Description:
  */
 
+#include <stdbool.h>
 #include <rtthread.h>
 #include <rtdevice.h>
 #include "init.h"
 #include "common.h"
 #include "tasks/qblc.h"
+#include "bsp/bsp.h"
 
 static void blink(void *args)
 {
-    static rt_bool_t state = RT_FALSE;
-    rt_base_t pin = rt_pin_get("PC.13");
-    rt_pin_mode(pin, PIN_MODE_OUTPUT);
+    static bool state = false;
     while(1){
         state = !state;
         if(state){
-            rt_pin_write(pin, PIN_HIGH);
+            bsp_pin_set(BSP_PIN_BLINK, BSP_PIN_HIGH);
         }else{
-            rt_pin_write(pin, PIN_LOW);
+            bsp_pin_set(BSP_PIN_BLINK, BSP_PIN_LOW);
         }
         rt_thread_mdelay(1000);
     }
@@ -30,6 +30,9 @@ static void blink(void *args)
 
 int init()
 {
+    if(bsp_init() < 0){
+        QSH(" #! bsp init failed\n");
+    }
     rt_thread_t tid = rt_thread_create("blink", blink, RT_NULL, 256, 5, 1);
     if(tid != RT_NULL){
         rt_thread_startup(tid);

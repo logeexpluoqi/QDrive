@@ -2,7 +2,7 @@
  * @ Author: luoqi
  * @ Create Time: 2023-07-02 23:34
  * @ Modified by: luoqi
- * @ Modified time: 2023-07-03 00:41
+ * @ Modified time: 2023-07-03 01:11
  * @ Description:
  */
 
@@ -11,7 +11,7 @@
 #include "bsp.h"
 #include "../common.h"
 
-static rt_base_t pin_dir1, pin_dir2, pin_dir3, pin_dir4;
+static rt_base_t pin_dir1, pin_dir2, pin_dir3, pin_dir4, pin_blink;
 static struct rt_device_pwm *pwm = RT_NULL;
 
 #define PWM_PERIOD          100000      // ns
@@ -30,11 +30,13 @@ int bsp_init()
     pin_dir2 = rt_pin_get("PB.1");
     pin_dir3 = rt_pin_get("PB.2");
     pin_dir4 = rt_pin_get("PB.10");
+    pin_blink = rt_pin_get("PC.13");
 
     rt_pin_mode(pin_dir1, PIN_MODE_OUTPUT);
     rt_pin_mode(pin_dir2, PIN_MODE_OUTPUT);
     rt_pin_mode(pin_dir3, PIN_MODE_OUTPUT);
     rt_pin_mode(pin_dir4, PIN_MODE_OUTPUT);
+    rt_pin_mode(pin_blink, PIN_MODE_OUTPUT);
 
     /* pwm init */
     pwm = (struct rt_device_pwm *)rt_device_find("pwm5");
@@ -63,14 +65,46 @@ int bsp_init()
         return -1;
     }
 
-    tim11 = rt_device_find("timer11");
-    if(tim11 == RT_NULL){
-        QSH(" #! timer14 find faild\n");
-    }
-    if(rt_device_open(tim11, RT_DEVICE_OFLAG_RDWR) != RT_EOK){
-        QSH(" #! timer14 open failed\n");
-    }
+    // tim11 = rt_device_find("timer11");
+    // if(tim11 == RT_NULL){
+    //     QSH(" #! timer11 find faild\n");
+    //     return -1;
+    // }
+    // if(rt_device_open(tim11, RT_DEVICE_OFLAG_RDWR) != RT_EOK){
+    //     QSH(" #! timer11 open failed\n");
+    //     return -1;
+    // }
 
+    return 0;
+}
+
+int bsp_pin_set(BspPin pin, BspPinStatus status)
+{
+    switch(pin){
+        case BSP_PIN_BLINK:
+            rt_pin_write(pin_blink, status);
+            break;
+        case BSP_PIN_DIR1:
+            rt_pin_write(pin_dir1, status);
+            break;
+        case BSP_PIN_DIR2:
+            rt_pin_write(pin_dir2, status);
+            break;
+        case BSP_PIN_DIR3:
+            rt_pin_write(pin_dir3, status);
+            break;
+        case BSP_PIN_DIR4:
+            rt_pin_write(pin_dir4, status);
+            break;
+        default:
+            return -1;
+    }
+    return 0;
+}
+
+int bsp_pwm_set()
+{
+    
     return 0;
 }
 
