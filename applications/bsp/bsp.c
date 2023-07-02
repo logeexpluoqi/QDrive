@@ -2,7 +2,7 @@
  * @ Author: luoqi
  * @ Create Time: 2023-07-02 23:34
  * @ Modified by: luoqi
- * @ Modified time: 2023-07-03 01:14
+ * @ Modified time: 2023-07-03 01:34
  * @ Description:
  */
 
@@ -12,7 +12,7 @@
 #include "../common.h"
 
 static rt_base_t pin_dir1, pin_dir2, pin_dir3, pin_dir4, pin_blink;
-static struct rt_device_pwm *pwm = RT_NULL;
+static struct rt_device_pwm *pwm5 = RT_NULL;
 
 #define PWM_PERIOD          100000      // ns
 #define PWM_PULSE_BASIC     10
@@ -39,19 +39,19 @@ int bsp_init()
     rt_pin_mode(pin_blink, PIN_MODE_OUTPUT);
 
     /* pwm init */
-    pwm = (struct rt_device_pwm *)rt_device_find("pwm5");
-    if(pwm == RT_NULL){
+    pwm5 = (struct rt_device_pwm *)rt_device_find("pwm5");
+    if(pwm5 == RT_NULL){
         QSH(" #! pwm device find faild\n");
         return -1;
     }
-    rt_pwm_set(pwm, 1, PWM_PERIOD, 0);
-    rt_pwm_set(pwm, 2, PWM_PERIOD, 0);
-    rt_pwm_set(pwm, 3, PWM_PERIOD, 0);
-    rt_pwm_set(pwm, 4, PWM_PERIOD, 0);
-    rt_pwm_enable(pwm, 1);
-    rt_pwm_enable(pwm, 2);
-    rt_pwm_enable(pwm, 3);
-    rt_pwm_enable(pwm, 4);
+    rt_pwm_set(pwm5, 1, PWM_PERIOD, 0);
+    rt_pwm_set(pwm5, 2, PWM_PERIOD, 0);
+    rt_pwm_set(pwm5, 3, PWM_PERIOD, 0);
+    rt_pwm_set(pwm5, 4, PWM_PERIOD, 0);
+    rt_pwm_enable(pwm5, 1);
+    rt_pwm_enable(pwm5, 2);
+    rt_pwm_enable(pwm5, 3);
+    rt_pwm_enable(pwm5, 4);
 
     /* encoder init */
     enc3 = rt_device_find("pulse3");
@@ -102,9 +102,20 @@ int bsp_pin_set(BspPin pin, BspPinStatus status)
     return 0;
 }
 
-int bsp_pwm_set()
+int bsp_pwm_set(BspPwm pwm, BspPwmChannel ch, float duty)
 {
-    
+    if(duty > 100){
+        duty = 100;
+    }else if(duty < 0){
+        duty = 0;
+    }
+    switch(pwm){
+        case BSP_PWM_5:
+            rt_pwm_set(pwm5, ch, PWM_PERIOD, duty * PWM_PULSE_BASIC);
+            break;
+        default:
+            return -1;
+    }
     return 0;
 }
 

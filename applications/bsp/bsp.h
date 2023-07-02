@@ -2,7 +2,7 @@
  * @ Author: luoqi
  * @ Create Time: 2023-07-02 23:34
  * @ Modified by: luoqi
- * @ Modified time: 2023-07-03 00:55
+ * @ Modified time: 2023-07-03 01:31
  * @ Description:
  */
 
@@ -12,10 +12,13 @@
 #include <stdint.h>
 
 typedef enum {
-    BSP_PWM_CH1,
-    BSP_PWM_CH2,
-    BSP_PWM_CH3,
-    BSP_PWM_CH4,
+    BSP_PWM_5,
+} BspPwm;
+typedef enum {
+    BSP_PWM_CH1 = 1,
+    BSP_PWM_CH2 = 2,
+    BSP_PWM_CH3 = 3,
+    BSP_PWM_CH4 = 4,
 } BspPwmChannel;
 
 typedef enum{
@@ -34,6 +37,8 @@ typedef enum {
 int bsp_init(void);
 
 int bsp_pin_set(BspPin pin, BspPinStatus status);
+
+int bsp_pwm_set(BspPwm pwm, BspPwmChannel ch, float duty);
 
 typedef int (*HwTimerCallback)(void);
 int bsp_hwtimer_init(uint32_t timeout_us, HwTimerCallback cb);
