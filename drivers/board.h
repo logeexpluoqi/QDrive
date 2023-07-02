@@ -161,7 +161,14 @@ extern "C"
  *                 such as     #define HAL_TIM_MODULE_ENABLED
  *
  */
+#define BSP_USING_PWM5
+#define BSP_USING_PWM5_CH1
+#define BSP_USING_PWM5_CH2
+#define BSP_USING_PWM5_CH3
+#define BSP_USING_PWM5_CH4
 
+#define BSP_USING_PULSE_ENCODER3
+#define BSP_USING_PULSE_ENCODER4
 /*#define BSP_USING_PWM1*/
 /*#define BSP_USING_PWM2*/
 /*#define BSP_USING_PWM3*/

@@ -40,4 +40,5 @@ settings/
 *.targets
 .project
 .cproject
+.config
 cubemx/
