@@ -235,6 +235,9 @@ extern "C"
  *
  */
 
+#define BSP_USING_TIM
+#define BSP_USING_TIM11
+
 /*#define BSP_USING_TIM*/
 #ifdef BSP_USING_TIM
 /*#define BSP_USING_TIM15*/

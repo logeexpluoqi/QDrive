@@ -23,3 +23,4 @@
 | DIR2      | PB1  | GPIOB    |
 | DIR3      | PB2  | GPIOB    |
 | DIR4      | PB10 | GPIOB    |
+| HWTIMER   |      | TIM11    |

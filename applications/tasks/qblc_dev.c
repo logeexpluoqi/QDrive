@@ -2,11 +2,12 @@
  * @ Author: luoqi
  * @ Create Time: 2023-07-02 03:18
  * @ Modified by: luoqi
- * @ Modified time: 2023-07-02 23:13
+ * @ Modified time: 2023-07-02 23:40
  * @ Description:
  */
 
 #include "qblc_dev.h"
+#include "bsp.h"
 #include "../common.h"
 
 static QblcObj dev;
