@@ -19,6 +19,49 @@ int motor_init(MotorObj *motor, float ilim, float vlim, float pllim, float phlim
     return 0;
 }
 
+int motor_enc_init(MotorObj *motor, int32_t eorg, uint32_t ppr, float unit, float interval, MotorDir dir)
+{
+    motor->ppr = ppr;
+    motor->eorg = eorg;
+    motor->unit = unit;
+    motor->nms = interval;
+    motor->dir = dir;
+    return 0;
+}
+
+int motor_zero_set(MotorObj *motor)
+{
+    motor->epos = 0;
+    motor->p = 0;
+    motor->v = 0;
+    return 0;
+}
+
+int motor_enc_calcu(MotorObj *motor, int64_t epos)
+{
+    if(motor->dir == MOTOR_DIR_CCW){
+        epos = -epos;
+    }
+    motor->epc = epos - motor->epos;
+    motor->inc = motor->epc * motor->unit;
+    motor->epos = epos;
+    motor->p = (float)(epos - motor->eorg) * motor->unit;
+    if(motor->epc < (0.001f * motor->nms * motor->ppr)){
+        motor->tcnt ++;
+        motor->tmc += motor->epc;
+        if(motor->tcnt > 10){
+            motor->tcnt = 0;
+            motor->v = 100 * ((float)motor->tmc * motor->unit) / motor->nms;
+            motor->tmc = 0;
+        }
+    }else{
+        motor->v = 1000 * ((float)motor->epc * motor->unit) / motor->nms;
+        motor->tcnt = 0;
+        motor->tmc = 0;
+    }
+    return 0;
+}
+
 int motor_mod_set(MotorObj *motor, MotorMod mod)
 {
     motor->mod = mod;
