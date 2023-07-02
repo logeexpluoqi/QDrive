@@ -2,7 +2,7 @@
  * @ Author: luoqi
  * @ Create Time: 2023-07-02 23:34
  * @ Modified by: luoqi
- * @ Modified time: 2023-07-03 01:11
+ * @ Modified time: 2023-07-03 01:14
  * @ Description:
  */
 
@@ -65,15 +65,15 @@ int bsp_init()
         return -1;
     }
 
-    // tim11 = rt_device_find("timer11");
-    // if(tim11 == RT_NULL){
-    //     QSH(" #! timer11 find faild\n");
-    //     return -1;
-    // }
-    // if(rt_device_open(tim11, RT_DEVICE_OFLAG_RDWR) != RT_EOK){
-    //     QSH(" #! timer11 open failed\n");
-    //     return -1;
-    // }
+    tim11 = rt_device_find("timer11");
+    if(tim11 == RT_NULL){
+        QSH(" #! timer11 find faild\n");
+        return -1;
+    }
+    if(rt_device_open(tim11, RT_DEVICE_OFLAG_RDWR) != RT_EOK){
+        QSH(" #! timer11 open failed\n");
+        return -1;
+    }
 
     return 0;
 }
