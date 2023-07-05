@@ -8,12 +8,12 @@
 #ifndef _COMMON_H
 #define _COMMON_H
 
-#include <rtthread.h>
 #include <string.h>
+#include "bsp/bsp.h"
 
-#define QSH(...)                rt_kprintf(__VA_ARGS__)
+#define QSH(args)                bsp_printf(args)
 
-#define QSH_INFO_PARAM_ERR      rt_kprintf(" #! parameter error !\n"); return 0
+#define QSH_INFO_PARAM_ERR      bsp_printf(" #! parameter error !\n"); return 0
 
 #define ISARG(s1, s2)           (strcmp(s1, s2) == 0)
 

@@ -2,7 +2,7 @@
  * @ Author: luoqi
  * @ Create Time: 2023-07-02 03:10
  * @ Modified by: luoqi
- * @ Modified time: 2023-07-03 01:11
+ * @ Modified time: 2023-07-03 19:58
  * @ Description:
  */
 
@@ -24,7 +24,7 @@ static void blink(void *args)
         }else{
             bsp_pin_set(BSP_PIN_BLINK, BSP_PIN_LOW);
         }
-        rt_thread_mdelay(1000);
+        bsp_delay_ms(1000);
     }
 }
 

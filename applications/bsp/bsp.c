@@ -2,7 +2,7 @@
  * @ Author: luoqi
  * @ Create Time: 2023-07-02 23:34
  * @ Modified by: luoqi
- * @ Modified time: 2023-07-03 01:34
+ * @ Modified time: 2023-07-03 20:21
  * @ Description:
  */
 
@@ -21,7 +21,11 @@ static rt_device_t enc3 = RT_NULL, enc4 = RT_NULL;
 
 static rt_device_t tim11;
 static rt_hwtimerval_t timeout_s;
-static inline rt_err_t tim11_callback(rt_device_t dev, rt_size_t size);
+
+static inline rt_err_t tim11_callback(rt_device_t dev, rt_size_t size)
+{
+    return hwtimer_cb();
+}
 
 int bsp_init()
 {
@@ -138,7 +142,7 @@ int bsp_hwtimer_init(uint32_t timeout_us, HwTimerCallback cb)
     return 0;
 }
 
-rt_err_t tim11_callback(rt_device_t dev, rt_size_t size)
+int bsp_delay_ms(uint32_t ms)
 {
-    return hwtimer_cb();
+    return rt_thread_mdelay(ms);
 }
