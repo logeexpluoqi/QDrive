@@ -19,12 +19,12 @@ int motor_init(MotorObj *motor, float ilim, float vlim, float pllim, float phlim
     return 0;
 }
 
-int motor_enc_init(MotorObj *motor, int32_t eorg, uint32_t ppr, float unit, float interval, MotorDir dir)
+int motor_enc_init(MotorObj *motor, int32_t eorg, uint32_t ppr, float unit, float interval_ms, MotorDir dir)
 {
     motor->ppr = ppr;
     motor->eorg = eorg;
     motor->unit = unit;
-    motor->nms = interval;
+    motor->nms = interval_ms;
     motor->dir = dir;
     return 0;
 }

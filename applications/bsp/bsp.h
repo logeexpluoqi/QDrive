@@ -2,7 +2,7 @@
  * @ Author: luoqi
  * @ Create Time: 2023-07-02 23:34
  * @ Modified by: luoqi
- * @ Modified time: 2023-07-03 20:17
+ * @ Modified time: 2023-07-10 00:08
  * @ Description:
  */
 
@@ -35,6 +35,13 @@ typedef enum {
     BSP_PIN_HIGH    = 1
 } BspPinStatus;
 
+typedef enum {
+    BSP_ENC_CH3,
+    BSP_ENC_CH4,
+}BspEncChannel;
+
+typedef int (*HwTimerCallback)(void);
+
 #define bsp_printf(...)     rt_kprintf(__VA_ARGS__)
 
 int bsp_init(void);
@@ -43,8 +50,9 @@ int bsp_pin_set(BspPin pin, BspPinStatus status);
 
 int bsp_pwm_set(BspPwm pwm, BspPwmChannel ch, float duty);
 
-typedef int (*HwTimerCallback)(void);
 int bsp_hwtimer_init(uint32_t timeout_us, HwTimerCallback cb);
+
+int bsp_hwtimer_enc_read(BspEncChannel ch, int32_t *enc);
 
 int bsp_delay_ms(uint32_t ms);
 

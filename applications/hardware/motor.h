@@ -50,7 +50,7 @@ typedef struct motor
 
 int motor_init(MotorObj *motor, float ilim, float vlim, float pllim, float phlim);
 
-int motor_enc_init(MotorObj *motor, int32_t eorg, uint32_t ppr, float unit, float interval, MotorDir dir);
+int motor_enc_init(MotorObj *motor, int32_t eorg, uint32_t ppr, float unit, float interval_ms, MotorDir dir);
 
 int motor_zero_set(MotorObj *motor);
 

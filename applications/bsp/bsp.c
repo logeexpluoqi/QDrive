@@ -2,7 +2,7 @@
  * @ Author: luoqi
  * @ Create Time: 2023-07-02 23:34
  * @ Modified by: luoqi
- * @ Modified time: 2023-07-09 23:06
+ * @ Modified time: 2023-07-10 00:04
  * @ Description:
  */
 
@@ -15,8 +15,8 @@
 static rt_base_t pin_dir1, pin_dir2, pin_dir3, pin_dir4, pin_blink;
 static struct rt_device_pwm *pwm5 = RT_NULL;
 
-#define PWM_PERIOD          10000      // ns
-#define PWM_PULSE_BASIC     100
+#define PWM_PERIOD          50000      // ns
+#define PWM_PULSE_BASIC     500
 
 static rt_device_t enc3 = RT_NULL, enc4 = RT_NULL;
 
@@ -140,6 +140,25 @@ int bsp_hwtimer_init(uint32_t timeout_us, HwTimerCallback cb)
         QSH(" #! timer11 timeout set failed\n");
         return -1;
     }
+    return 0;
+}
+
+int bsp_hwtimer_enc_read(BspEncChannel ch, int32_t *enc)
+{
+    int32_t enc_count;
+    switch(ch){
+        case BSP_ENC_CH3:
+            rt_device_read(enc3, 0, &enc_count, sizeof(enc_count));
+            rt_device_control(enc3, PULSE_ENCODER_CMD_CLEAR_COUNT, RT_NULL);
+            break;
+        case BSP_ENC_CH4:
+            rt_device_read(enc4, 0, &enc_count, sizeof(enc_count));
+            rt_device_control(enc4, PULSE_ENCODER_CMD_CLEAR_COUNT, RT_NULL);
+            break;
+        default:
+            return -1;
+    }
+    *enc = enc_count;
     return 0;
 }
 
