@@ -15,7 +15,9 @@
 
 #define QSH_INFO_PARAM_ERR      bsp_printf(" #! parameter error !\n"); return 0
 
-#define ISARG(s1, s2)           (strcmp(s1, s2) == 0)
+#define ISARGV(s1, s2)           (strcmp(s1, s2) == 0)
+
+#define ISARGN(argc, n)          ((argc + 1) == n)
 
 #define QSH_EXPORT(name, callback, desc)    MSH_CMD_EXPORT_ALIAS(callback, name, desc)
 

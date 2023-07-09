@@ -2,10 +2,11 @@
  * @ Author: luoqi
  * @ Create Time: 2023-07-02 23:34
  * @ Modified by: luoqi
- * @ Modified time: 2023-07-03 20:21
+ * @ Modified time: 2023-07-09 21:25
  * @ Description:
  */
 
+#include <stdlib.h>
 #include <rtthread.h>
 #include <rtdevice.h>
 #include "bsp.h"
@@ -21,6 +22,8 @@ static rt_device_t enc3 = RT_NULL, enc4 = RT_NULL;
 
 static rt_device_t tim11;
 static rt_hwtimerval_t timeout_s;
+
+static HwTimerCallback hwtimer_cb = RT_NULL;
 
 static inline rt_err_t tim11_callback(rt_device_t dev, rt_size_t size)
 {
@@ -123,8 +126,6 @@ int bsp_pwm_set(BspPwm pwm, BspPwmChannel ch, float duty)
     return 0;
 }
 
-static HwTimerCallback hwtimer_cb = RT_NULL;
-
 int bsp_hwtimer_init(uint32_t timeout_us, HwTimerCallback cb)
 {
     uint32_t freq_ns = 1000;
@@ -146,3 +147,44 @@ int bsp_delay_ms(uint32_t ms)
 {
     return rt_thread_mdelay(ms);
 }
+
+static int bsp_help()
+{
+    QSH(" -pin <num> <status>, num[b/1/2/3/4], status[h/l]\n");
+    QSH(" -pwm <ch> <duty>, ch[1~4], duty[0.0~00.0]\n");
+    return 0;
+}
+
+static int cmd_bsp(int argc, char **argv)
+{
+    if(argc == 1){
+        return bsp_help();
+    }
+    if((argc == 4) && ISARGV(argv[1], "pin")){
+        int pin = -1;
+        if(ISARGV(argv[2], "b")){
+            pin = BSP_PIN_BLINK;
+        }else{
+            pin = atoi(argv[2]);
+        }
+        if(ISARGV(argv[3], "l")){
+            bsp_pin_set(pin, BSP_PIN_LOW);
+        }else if(ISARGV(argv[3], "h")){
+            bsp_pin_set(pin, BSP_PIN_HIGH);
+        }else {
+            QSH_INFO_PARAM_ERR;
+        }
+    }else if((argc == 4) && ISARGV(argv[1], "pwm")){
+        int ch = atoi(argv[2]);
+        float duty = atof(argv[3]);
+        if((ch >= 1) && (ch <=4)){
+            bsp_pwm_set(BSP_PWM_5, ch, duty);
+        }else {
+            QSH_INFO_PARAM_ERR;
+        }
+    }else {
+        QSH_INFO_PARAM_ERR;
+    }
+    return 0;
+}
+MSH_CMD_EXPORT_ALIAS(cmd_bsp, bsp, board surport debug);
