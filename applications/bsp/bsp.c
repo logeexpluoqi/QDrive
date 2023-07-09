@@ -2,7 +2,7 @@
  * @ Author: luoqi
  * @ Create Time: 2023-07-02 23:34
  * @ Modified by: luoqi
- * @ Modified time: 2023-07-09 21:25
+ * @ Modified time: 2023-07-09 23:06
  * @ Description:
  */
 
@@ -15,8 +15,8 @@
 static rt_base_t pin_dir1, pin_dir2, pin_dir3, pin_dir4, pin_blink;
 static struct rt_device_pwm *pwm5 = RT_NULL;
 
-#define PWM_PERIOD          100000      // ns
-#define PWM_PULSE_BASIC     10
+#define PWM_PERIOD          10000      // ns
+#define PWM_PULSE_BASIC     100
 
 static rt_device_t enc3 = RT_NULL, enc4 = RT_NULL;
 
